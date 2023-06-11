@@ -1,0 +1,15 @@
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\bin\Debug\net5.0\StockTrackingApp.Data.deps.json
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\bin\Debug\net5.0\StockTrackingApp.Data.runtimeconfig.json
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\bin\Debug\net5.0\StockTrackingApp.Data.runtimeconfig.dev.json
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\bin\Debug\net5.0\StockTrackingApp.Data.dll
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\bin\Debug\net5.0\StockTrackingApp.Data.pdb
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\obj\Debug\net5.0\StockTrackingApp.Data.csproj.AssemblyReference.cache
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\obj\Debug\net5.0\StockTrackingApp.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\obj\Debug\net5.0\StockTrackingApp.Data.AssemblyInfoInputs.cache
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\obj\Debug\net5.0\StockTrackingApp.Data.AssemblyInfo.cs
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\obj\Debug\net5.0\StockTrackingApp.Data.csproj.CoreCompileInputs.cache
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\obj\Debug\net5.0\StockTrackingApp.Data.dll
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\obj\Debug\net5.0\refint\StockTrackingApp.Data.dll
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\obj\Debug\net5.0\StockTrackingApp.Data.pdb
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\obj\Debug\net5.0\StockTrackingApp.Data.genruntimeconfig.cache
+C:\programming\dotnets\StockTrackingApp\StockTrackingApp.Data\obj\Debug\net5.0\ref\StockTrackingApp.Data.dll
