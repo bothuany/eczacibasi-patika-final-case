@@ -50,6 +50,7 @@ The following are the available endpoints provided by this API:
 - `PUT /api/products/{id}`: Update an existing product.
 - `DELETE /api/products/{id}`: Delete a product by its ID.
 - `GET /api/products/search`: Search for products based on various parameters.
+  <p>Note: SortBy options are: Default, PriceAscending, PriceDescending, Name</p> 
 
 ### Sizes
 
