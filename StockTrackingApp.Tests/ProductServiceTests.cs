@@ -9,6 +9,7 @@ using StockTrackingApp.Business.Dto.Product;
 using StockTrackingApp.Business.Dto.Stock;
 using StockTrackingApp.Business.Interface;
 using StockTrackingApp.Data.Entity;
+using StockTrackingApp.Data.Enums;
 using StockTrackingApp.Data.Interface;
 using Xunit;
 
@@ -126,7 +127,7 @@ namespace StockTrackingApp.UnitTests.Business
                 CategoryId = 1
             };
 
-            _productRepositoryMock.Setup(mock => mock.GetById(id,true,true,true)).Returns(existingProduct);
+            _productRepositoryMock.Setup(mock => mock.GetById(id, true, true, true)).Returns(existingProduct);
             _mapperMock.Setup(mock => mock.Map<GetProductByIdWithStocksDto>(existingProduct)).Returns(
                 new GetProductByIdWithStocksDto
                 {
@@ -157,7 +158,7 @@ namespace StockTrackingApp.UnitTests.Business
         {
             // Arrange
             var id = 1;
-            _productRepositoryMock.Setup(mock => mock.GetById(id,true,true,true)).Returns((Product)null);
+            _productRepositoryMock.Setup(mock => mock.GetById(id, true, true, true)).Returns((Product)null);
 
             // Act
             var result = _productService.GetById(id);
@@ -174,61 +175,61 @@ namespace StockTrackingApp.UnitTests.Business
         public void Search_WithValidParameters_ReturnsMatchingProducts()
         {
             // Arrange
-            var name = "Product";
-            var categoryId = 1;
-            var brandId = 1;
-            var minPrice = 0.99;
-            var sizeId = 1;
-            var colorId = 1;
-            var withStocks = true;
-            var page = 0;
-            var pageSize = -1;
+            string name = "Product";
+            int categoryId = 1;
+            int brandId = 1;
+            double minPrice = 0.99;
+            int sizeId = 1;
+            int colorId = 1;
+            bool withStocks = true;
+            int page = 0;
+            int pageSize = -1;
 
             var products = new List<Product>
-            {
-                new Product
-                {
-                    Id = 1,
-                    Name = "Product A",
-                    Price = 10.99,
-                    BrandId = 1,
-                    CategoryId = 1
-                },
-                new Product
-                {
-                    Id = 2,
-                    Name = "Product B",
-                    Price = 19.99,
-                    BrandId = 1,
-                    CategoryId = 2
-                }
-            };
+    {
+        new Product
+        {
+            Id = 1,
+            Name = "Product A",
+            Price = 10.99,
+            BrandId = 1,
+            CategoryId = 1
+        },
+        new Product
+        {
+            Id = 2,
+            Name = "Product B",
+            Price = 19.99,
+            BrandId = 1,
+            CategoryId = 2
+        }
+    };
 
-            _productRepositoryMock.Setup(mock => mock.Search(name, categoryId, brandId, minPrice, sizeId, colorId, withStocks, page, pageSize))
+            _productRepositoryMock.Setup(mock => mock.Search(name, categoryId, brandId, minPrice, sizeId, colorId, withStocks, SortBy.Name, page, pageSize))
                 .Returns(products);
             _mapperMock.Setup(mock => mock.Map<List<GetAllProductsWithStocksDto>>(products)).Returns(
                 new List<GetAllProductsWithStocksDto>
                 {
-                    new GetAllProductsWithStocksDto
-                    {
-                        Id = 1,
-                        Name = "Product A",
-                        Price = 10.99,
-                        Category = new GetCategoryByIdDto { Id = 1, Name = "Category" },
-                        Brand = new GetBrandByIdDto { Id = 1, Name = "Brand" }
-                    },
-                    new GetAllProductsWithStocksDto
-                    {
-                        Id = 2,
-                        Name = "Product B",
-                        Price = 19.99,
-                        Category = new GetCategoryByIdDto { Id = 2, Name = "Category" },
-                        Brand = new GetBrandByIdDto { Id = 1, Name = "Brand" }
-                    }
+            new GetAllProductsWithStocksDto
+            {
+                Id = 1,
+                Name = "Product A",
+                Price = 10.99,
+                Category = new GetCategoryByIdDto { Id = 1, Name = "Category" },
+                Brand = new GetBrandByIdDto { Id = 1, Name = "Brand" }
+            },
+            new GetAllProductsWithStocksDto
+            {
+                Id = 2,
+                Name = "Product B",
+                Price = 19.99,
+                Category = new GetCategoryByIdDto { Id = 2, Name = "Category" },
+                Brand = new GetBrandByIdDto { Id = 1, Name = "Brand" }
+            }
                 });
 
             // Act
-            var result = _productService.Search(name, categoryId, brandId, minPrice, sizeId, colorId, withStocks, page, pageSize);
+            var result = _productService.Search(name, categoryId, brandId, minPrice, sizeId, colorId, withStocks, "name", page, pageSize);
 
             // Assert
             Assert.NotNull(result);
@@ -260,11 +261,11 @@ namespace StockTrackingApp.UnitTests.Business
             int page = 0;
             int pageSize = -1;
 
-            _productRepositoryMock.Setup(mock => mock.Search(name, categoryId, brandId, minPrice, sizeId, colorId, withStocks, page, pageSize))
+            _productRepositoryMock.Setup(mock => mock.Search(name, categoryId, brandId, minPrice, sizeId, colorId, withStocks, SortBy.Name, page, pageSize))
                 .Returns((List<Product>)null);
 
             // Act
-            var result = _productService.Search(name, categoryId, brandId, minPrice, sizeId, colorId, withStocks, page, pageSize);
+            var result = _productService.Search(name, categoryId, brandId, minPrice, sizeId, colorId, withStocks, "name", page, pageSize);
 
             // Assert
             Assert.NotNull(result);

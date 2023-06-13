@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StockTrackingApp.Data.Entity;
+using StockTrackingApp.Data.Enums;
 using StockTrackingApp.Data.Interface;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace StockTrackingApp.Data
         }
 
         //page = 0 and pageSize = -1 means all
-        public List<Product> Search(string? name, int? categoryId, int? brandId, double? minPrice, int? sizeId, int? colorId, bool withStocks = false, int page = 0, int pageSize = -1)
+        public List<Product> Search(string? name, int? categoryId, int? brandId, double? minPrice, int? sizeId, int? colorId, bool withStocks = false, SortBy sortBy = SortBy.Default, int page = 0, int pageSize = -1)
         {
             var query = _context.Products.AsQueryable();
 
@@ -62,6 +63,21 @@ namespace StockTrackingApp.Data
 
             if (colorId.HasValue)
                 query = query.Where(x => x.Stocks.Any(x => x.ColorId == colorId));
+
+            switch (sortBy)
+            {
+                case SortBy.PriceAscending:
+                    query = query.OrderBy(x => x.Price);
+                    break;
+                case SortBy.PriceDescending:
+                    query = query.OrderByDescending(x => x.Price);
+                    break;
+                case SortBy.Name:
+                    query = query.OrderBy(x => x.Name);
+                    break;
+                default:
+                    break;
+            }
 
             if (withStocks)
             {
@@ -97,10 +113,12 @@ namespace StockTrackingApp.Data
             {
                 _mapper.Map(product, updateRequestedProduct);
                 _context.SaveChanges();
+                return updateRequestedProduct;
             }
 
-            return updateRequestedProduct;
+            return null;
         }
+
 
         public Product Delete(int id)
         {

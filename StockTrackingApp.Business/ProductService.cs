@@ -2,7 +2,9 @@
 using StockTrackingApp.Business.Dto.Product;
 using StockTrackingApp.Business.Interface;
 using StockTrackingApp.Data.Entity;
+using StockTrackingApp.Data.Enums;
 using StockTrackingApp.Data.Interface;
+using System;
 using System.Collections.Generic;
 using System.Net;
 
@@ -64,9 +66,9 @@ namespace StockTrackingApp.Business
             return ServiceResult<GetProductByIdWithStocksDto>.Success(mappedProduct);
         }
 
-        public ServiceResult<List<GetAllProductsWithStocksDto>> Search(string? name, int? categoryId, int? brandId, double? minPrice, int? sizeId, int? colorId, bool withStocks = true, int page = 0, int pageSize = -1)
+        public ServiceResult<List<GetAllProductsWithStocksDto>> Search(string? name, int? categoryId, int? brandId, double? minPrice, int? sizeId, int? colorId, bool withStocks = true, string sortBy = "Default", int page = 0, int pageSize = -1)
         {
-            var products = _productRepository.Search(name, categoryId, brandId, minPrice, sizeId, colorId, withStocks, page, pageSize);
+            var products = _productRepository.Search(name, categoryId, brandId, minPrice, sizeId, colorId, withStocks, ConvertToSortBy(sortBy), page, pageSize);
 
             if (products is null)
             {
@@ -84,10 +86,10 @@ namespace StockTrackingApp.Business
 
             if (product is null)
             {
-                return ServiceResult<GetProductByIdDto>.Failed(null, "Product not found", (int) HttpStatusCode.NotFound);
+                return ServiceResult<GetProductByIdDto>.Failed(null, "Product not found", (int)HttpStatusCode.NotFound);
             }
 
-            Product updatedProduct = _productRepository.Update(updateProductDto.Id, _mapper.Map<Product>(updateProductDto));
+            var updatedProduct = _productRepository.Update(updateProductDto.Id, _mapper.Map<Product>(updateProductDto));
 
             if (updatedProduct is null)
             {
@@ -96,5 +98,22 @@ namespace StockTrackingApp.Business
 
             return ServiceResult<GetProductByIdDto>.Success(_mapper.Map<GetProductByIdDto>(updatedProduct));
         }
+
+
+        private SortBy ConvertToSortBy(string sortBy)
+        {
+            switch (sortBy.ToLower())
+            {
+                case "priceascending":
+                    return SortBy.PriceAscending;
+                case "pricedescending":
+                    return SortBy.PriceDescending;
+                case "name":
+                    return SortBy.Name;
+                default:
+                    return SortBy.Default;
+            }
+        }
+
     }
 }

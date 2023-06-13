@@ -2,6 +2,7 @@
 using StockTrackingApp.Business.Dto.Product;
 using StockTrackingApp.Business.Dto.Stock;
 using StockTrackingApp.Business.Interface;
+using StockTrackingApp.Data.Enums;
 using System.Net;
 
 namespace StockTrackingApp.Controllers
@@ -67,9 +68,9 @@ namespace StockTrackingApp.Controllers
         }
 
         [HttpGet("search")]
-        public IActionResult Search(string name, int? categoryId, int? brandId, double? minPrice, int? sizeId, int? colorId, bool withStocks = true, int page = 0, int pageSize = -1)
+        public IActionResult Search(string name, int? categoryId, int? brandId, double? minPrice, int? sizeId, int? colorId, string sortBy = "Default", bool withStocks = true, int page = 0, int pageSize = -1)
         {
-            var result = _productService.Search(name, categoryId, brandId, minPrice, sizeId, colorId, withStocks, page, pageSize);
+            var result = _productService.Search(name, categoryId, brandId, minPrice, sizeId, colorId, withStocks, sortBy, page, pageSize);
 
             if (result.Succeed)
             {
